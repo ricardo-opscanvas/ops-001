@@ -1,0 +1,42 @@
+name: Test Workflow
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Terraform Init
+        run: terraform init
+      
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+      
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+      
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          echo "This is a test workflow for OpsRunner installation testing"
+      
+      - name: Terraform Init
+        run: terraform init
+      
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+      
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+      
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          echo "This is a test workflow for OpsRunner installation testing"
