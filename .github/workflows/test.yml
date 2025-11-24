@@ -1,27 +1,25 @@
 name: Test Workflow
-
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
-
+    branches: [main, master]
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: registry.opscanvas.io/public/opsrunner:thin
+    env:
+      OC_APP: app-val
+      OC_CORE: core-val
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
       - name: Terraform Init
         run: terraform init
-      
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-      
       - name: Terraform Apply
         run: terraform apply -auto-approve
-      
       - name: Run tests
         run: |
           echo "Running tests..."
